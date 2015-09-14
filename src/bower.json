@@ -1,0 +1,25 @@
+{
+  "name": "Food Game",
+  "version": "0.0.0",
+  "homepage": "https://github.com/JoelRamosM/Food_Game",
+  "authors": [
+    "Joel <joel.r.mz@gmail.com>"
+  ],
+  "description": "Jogo focado em educação alimentar",
+  "main": "index.html",
+  "moduleType": [
+    "es6"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "pixi.js": "git@github.com:pixijs/pixi.js.git#~3.0.7"
+  }
+}
