@@ -20,6 +20,6 @@
     "tests"
   ],
   "dependencies": {
-    "pixi.js": "git@github.com:pixijs/pixi.js.git#~3.0.7"
+    "phaser": "git@github.com:photonstorm/phaser.git#~2.4.3"
   }
 }

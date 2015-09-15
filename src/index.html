@@ -1,0 +1,119 @@
+<html>
+
+<body>
+</body>
+
+<script src="scripts/vendor/phaser.js"></script>
+<script>
+	var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'game-area',
+									{ preload: preload, create: create, render:render,update:update });
+		
+	function preload(){
+		game.stage.backgroundColor = '#6BDEF9';
+		game.load.image('ground', 'assets/ground_tile.png');
+		game.load.atlas('jasper', 'assets/jasperrun.png', null,jasperData);
+		
+		game.load.image('enemy01', 'assets/enemy00.png');
+		game.load.image('enemy02', 'assets/enemy01.png');
+		game.load.image('enemy03', 'assets/enemy02.png');
+	};
+	var hero;	
+	var cursors;
+	var jumpTimer = 0;					
+	function create(){
+		game.physics.startSystem(Phaser.Physics.ARCADE);
+    	game.time.desiredFps = 30;
+		game.world.resize(6000, 600);
+		
+		var xGround = 0;
+		for (var i = 0; i < 6000/100; i++)
+    	{
+        	game.add.sprite(xGround, 500, 'ground');
+			xGround+=100;
+    	}	
+		
+		hero = game.add.sprite(100, 450, 'jasper');
+		hero.scale.setTo(3, 3);
+		hero.animations.add('run');
+		hero.animations.play('run', 10, true);		
+		game.camera.follow(hero);
+		//debugger;
+		game.physics.arcade.bounds.y=-98;
+		game.physics.arcade.gravity.y = 200;
+		game.physics.enable(hero, Phaser.Physics.ARCADE);
+    	hero.body.bounce.y = 0.2;
+    	hero.body.collideWorldBounds = true;
+		
+		cursors = game.input.keyboard.createCursorKeys();
+	}
+	
+	function update() {
+		hero.body.velocity.x = 0;
+    	if (cursors.up.isDown && game.time.now > jumpTimer)
+    	{
+			hero.body.velocity.x = -160;
+        	 hero.body.velocity.y = -500;
+			 game.physics.arcade.gravity.y = -800
+       		 jumpTimer = game.time.now + 750;
+    	}
+		else{
+				hero.body.velocity.x = 250;
+				game.physics.arcade.gravity.y = 1000;				
+			}
+    }
+	
+	function render() {
+    	game.debug.spriteInfo(hero, 20, 32);
+	}
+
+	var jasperData = {
+	"frames": [
+		{
+			"filename": "run00",
+			"frame": {"x": 0,"y": 100,	"w": 32,"h": 44	},
+			"rotated": false,
+			"trimmed": true,
+			"spriteSourceSize": {"x":0,"y":2,"w":32,"h":44},
+			"sourceSize": {"w": 32,	"h": 44	}
+		},
+		{
+			"filename": "run01",
+			"frame": {"x": 32,"y": 100,	"w": 32,"h": 44	},
+			"rotated": false,
+			"trimmed": true,
+			"spriteSourceSize": {"x":0,"y":2,"w":32,"h":44},
+			"sourceSize": {"w": 32,	"h": 44	}
+		},
+		{
+			"filename": "run02",
+			"frame": {"x": 64,"y": 100,	"w": 32,"h": 44	},
+			"rotated": false,
+			"trimmed": true,
+			"spriteSourceSize": {"x":0,"y":2,"w":32,"h":44},
+			"sourceSize": {"w": 32,	"h": 44	}
+		},
+		{
+			"filename": "run03",
+			"frame": {"x": 96,"y": 100,	"w": 32,"h": 44	},
+			"rotated": false,
+			"trimmed": true,
+			"spriteSourceSize": {"x":0,"y":2,"w":32,"h":44},
+			"sourceSize": {"w": 32,	"h": 44	}
+		}
+	],
+	"meta": {
+		"app": "http://www.texturepacker.com",
+		"version": "1.0",
+		"image": "jasperrun.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 128,
+			"h": 192
+		},
+		"scale": "0.2",
+		"smartupdate": "$TexturePacker:SmartUpdate:fb56f261b1eb04e3215824426595f64c$"
+	}
+};
+</script>
+
+</html>

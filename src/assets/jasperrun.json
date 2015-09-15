@@ -1,0 +1,44 @@
+{
+	"frames": [
+		{
+			"filename": "run00",
+			"frame": {"x": 0,"y": 100,	"w": 32,"h": 44	},
+			"rotated": false,
+			"trimmed": true,
+			"sourceSize": {"w": 32,	"h": 44	}
+		},
+		{
+			"filename": "run01",
+			"frame": {"x": 32,"y": 100,	"w": 32,"h": 44	},
+			"rotated": false,
+			"trimmed": true,
+			"sourceSize": {"w": 32,	"h": 44	}
+		},
+		{
+			"filename": "run02",
+			"frame": {"x": 64,"y": 100,	"w": 32,"h": 44	},
+			"rotated": false,
+			"trimmed": true,
+			"sourceSize": {"w": 32,	"h": 44	}
+		},
+		{
+			"filename": "run03",
+			"frame": {"x": 96,"y": 100,	"w": 32,"h": 44	},
+			"rotated": false,
+			"trimmed": true,
+			"sourceSize": {"w": 32,	"h": 44	}
+		}
+	],
+	"meta": {
+		"app": "http://www.texturepacker.com",
+		"version": "1.0",
+		"image": "jasperrun.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 128,
+			"h": 192
+		},
+		"scale": "0.2",
+		"smartupdate": "$TexturePacker:SmartUpdate:fb56f261b1eb04e3215824426595f64c$"
+	}
+}
