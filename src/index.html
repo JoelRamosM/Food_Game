@@ -19,12 +19,17 @@
 	};
 	var hero;	
 	var cursors;
-	var jumpTimer = 0;					
+	var jumpTimer = 0;
+	var enemies;
+
 	function create(){
 		game.physics.startSystem(Phaser.Physics.ARCADE);
     	game.time.desiredFps = 30;
 		game.world.resize(6000, 600);
 		
+		enemies = game.add.group();
+		game.time.events.loop(2000, createSprite, this);
+
 		var xGround = 0;
 		for (var i = 0; i < 6000/100; i++)
     	{
@@ -42,26 +47,48 @@
 		game.physics.arcade.gravity.y = 200;
 		game.physics.enable(hero, Phaser.Physics.ARCADE);
     	hero.body.bounce.y = 0.2;
-    	hero.body.collideWorldBounds = true;
-		
+    	hero.body.collideWorldBounds = true;		
+
 		cursors = game.input.keyboard.createCursorKeys();
 	}
 	
+	function createSprite() {
+
+    	var enemy = enemies.create(game.camera.view.right, ((Math.random() * 600) + 100), 'enemy01');
+    	game.physics.enable(enemy, Phaser.Physics.ARCADE);
+    	enemy.body.gravity.y = -200;
+    	enemy.scale.setTo(0.5, 0.5);  	
+	}
+
 	function update() {
+		game.stage.backgroundColor = '#6BDEF9';
+		enemies.setAll('x', -10, true, true, 1);
 		hero.body.velocity.x = 0;
+
     	if (cursors.up.isDown && game.time.now > jumpTimer)
     	{
 			hero.body.velocity.x = -160;
         	 hero.body.velocity.y = -500;
-			 game.physics.arcade.gravity.y = -800
+			 hero.body.gravity.y = -800
        		 jumpTimer = game.time.now + 750;
     	}
 		else{
 				hero.body.velocity.x = 250;
-				game.physics.arcade.gravity.y = 1000;				
+				hero.body.gravity.y = 1000;				
 			}
+
+		enemies.forEach(function (enemy) {
+			game.physics.arcade.collide(enemy, hero, collisionHandler, null, this);
+		});
     }
 	
+
+    function collisionHandler (enemy, hero) {
+    	   	game.stage.backgroundColor = '#992d2d';
+    	   	enemies.remove(enemy, true);
+	}
+
+
 	function render() {
     	game.debug.spriteInfo(hero, 20, 32);
 	}
