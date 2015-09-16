@@ -28,7 +28,7 @@
 		game.world.resize(6000, 600);
 		
 		enemies = game.add.group();
-		game.time.events.loop(2000, createSprite, this);
+		game.time.events.loop(1000, createSprite, this);
 
 		var xGround = 0;
 		for (var i = 0; i < 6000/100; i++)
@@ -39,6 +39,7 @@
 		
 		hero = game.add.sprite(100, 450, 'jasper');
 		hero.scale.setTo(3, 3);
+		
 		hero.animations.add('run');
 		hero.animations.play('run', 10, true);		
 		game.camera.follow(hero);
@@ -54,7 +55,7 @@
 	
 	function createSprite() {
 
-    	var enemy = enemies.create(game.camera.view.right, ((Math.random() * 600) + 100), 'enemy01');
+    	var enemy = enemies.create(game.camera.view.right, ((Math.random() * 600) + 100), 'enemy0'+(Math.floor(Math.random() *  	3) + 1));
     	game.physics.enable(enemy, Phaser.Physics.ARCADE);
     	enemy.body.gravity.y = -200;
     	enemy.scale.setTo(0.5, 0.5);  	
@@ -62,12 +63,12 @@
 
 	function update() {
 		game.stage.backgroundColor = '#6BDEF9';
-		enemies.setAll('x', -10, true, true, 1);
+		enemies.setAll('x', -5, true, true, 1);
 		hero.body.velocity.x = 0;
 
     	if (cursors.up.isDown && game.time.now > jumpTimer)
     	{
-			hero.body.velocity.x = -160;
+			 hero.body.velocity.x = -160;
         	 hero.body.velocity.y = -500;
 			 hero.body.gravity.y = -800
        		 jumpTimer = game.time.now + 750;
@@ -76,7 +77,13 @@
 				hero.body.velocity.x = 250;
 				hero.body.gravity.y = 1000;				
 			}
+			
+		if(game.camera.view.right == 6000){
+			hero.body.velocity.x = 0;
+			hero.animations.stop(null, true);
+		}
 
+		
 		enemies.forEach(function (enemy) {
 			game.physics.arcade.collide(enemy, hero, collisionHandler, null, this);
 		});
@@ -84,7 +91,6 @@
 	
 
     function collisionHandler (enemy, hero) {
-    	   	game.stage.backgroundColor = '#992d2d';
     	   	enemies.remove(enemy, true);
 	}
 
@@ -140,7 +146,6 @@
 		"scale": "0.2",
 		"smartupdate": "$TexturePacker:SmartUpdate:fb56f261b1eb04e3215824426595f64c$"
 	}
-};
-</script>
+};</script>
 
 </html>
